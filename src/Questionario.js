@@ -8,7 +8,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import { FormControl,
+import {
+  FormControl,
   FormLabel,
   RadioGroup,
   Radio,
@@ -52,12 +53,147 @@ const useStyles = makeStyles((theme) => ({
   },
   combo: {
     width: '100%', // Fix IE 11 issue
-    
+
   },
 }));
 
+
+
+
 export default function SignIn() {
   const classes = useStyles();
+  const schema = require('./schema.json');
+  const title = schema['title'];
+  const description = schema['description'];
+  const questions = schema['questions'];
+
+  const compatibleTypes = {
+    alternativa() {
+      return (
+        <FormControl component="fieldset" className={classes.combo}>
+          <FormLabel component="legend">1. Qual seu time?</FormLabel>
+          <RadioGroup aria-label="gender" name="gender1">
+            <FormControlLabel value="bahia" control={<Radio />} label="Bahia" />
+            <FormControlLabel value="vitoria" control={<Radio />} label="Vitória" />
+            <FormControlLabel value="fluminense" control={<Radio />} label="Fluminense" />
+            <FormControlLabel value="outro" control={<Radio />} label="Outro" />
+          </RadioGroup>
+        </FormControl>
+      );
+    },
+    multipla() {
+      return (
+        <FormControl component="fieldset" className={classes.combo}>
+          <FormLabel component="legend">2. Quais títulos seu time já ganhou?</FormLabel>
+          <FormGroup>
+            <FormControlLabel
+              control={<Checkbox name="baiano" />}
+              label="Baiano"
+            />
+            <FormControlLabel
+              control={<Checkbox name="nordestao" />}
+              label="Nordestão"
+            />
+            <FormControlLabel
+              control={<Checkbox name="copa" />}
+              label="Copa do Brasil"
+            />
+            <FormControlLabel
+              control={<Checkbox name="brasileiro" />}
+              label="Campeonato Brasileiro"
+            />
+          </FormGroup>
+        </FormControl>
+      );
+    },
+    aberta() {
+      return (
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="email"
+          label="Qual o maior jogador do seu time?"
+          name="email"
+          autoComplete="email"
+          autoFocus
+        />
+      );
+    },
+    name() {
+      return (
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              autoComplete="fname"
+              name="firstName"
+              variant="outlined"
+
+              fullWidth
+              id="firstName"
+              label="Nome"
+              autoFocus
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              variant="outlined"
+              fullWidth
+              id="lastName"
+              label="Sobrenome"
+              name="lastName"
+              autoComplete="lname"
+            />
+          </Grid>
+        </Grid>
+      );
+    },
+    telefone() {
+      return (
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={3}>
+            <TextField
+              autoComplete="fname"
+              name="firstName"
+              variant="outlined"
+              required
+              fullWidth
+              id="Sobrenome"
+              label="DDD"
+              autoFocus
+            />
+          </Grid>
+          <Grid item xs={12} sm={9}>
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              id="lastName"
+              label="Telefone"
+              name="lastName"
+              autoComplete="lname"
+            />
+          </Grid>
+        </Grid>
+      );
+    },
+    email() {
+      return (
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="email"
+          label="Qual seu email?"
+          name="email"
+          autoComplete="email"
+          autoFocus
+        />
+      );
+    }
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -67,60 +203,69 @@ export default function SignIn() {
           <BallotSharp />
         </Avatar>
         <Typography component="h1" variant="h4">
-          Breafing Completo
+          {title}
         </Typography>
         <Typography component="subtitle1" variant="subtitle1">
-         Descrição do formulário
+          {description}
         </Typography>
         <form className={classes.form} noValidate>
+
+          {
+            questions.map((question) => {
+              switch (question['tipo']) {
+
+              }
+            })
+
+          }
           <FormControl component="fieldset" className={classes.combo}>
-              <FormLabel component="legend">1. Qual seu time?</FormLabel>
-              <RadioGroup aria-label="gender" name="gender1">
-                <FormControlLabel value="bahia" control={<Radio />} label="Bahia" />
-                <FormControlLabel value="vitoria" control={<Radio />} label="Vitória" />
-                <FormControlLabel value="fluminense" control={<Radio />} label="Fluminense" />
-                <FormControlLabel value="outro" control={<Radio />} label="Outro" />
-              </RadioGroup>
-            </FormControl>
-            <FormControl component="fieldset" className={classes.combo}>
-                <FormLabel component="legend">2. Quais títulos seu time já ganhou?</FormLabel>
-                <FormGroup>
-                  <FormControlLabel
-                    control={<Checkbox name="baiano" />}
-                    label="Baiano"
-                  />
-                  <FormControlLabel
-                    control={<Checkbox name="nordestao" />}
-                    label="Nordestão"
-                  />
-                  <FormControlLabel
-                    control={<Checkbox name="copa" />}
-                    label="Copa do Brasil"
-                  />
-                  <FormControlLabel
-                    control={<Checkbox name="brasileiro" />}
-                    label="Campeonato Brasileiro"
-                  />
-                </FormGroup>
-              </FormControl>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Qual o maior jogador do seu time?"
-                name="email"
-                autoComplete="email"
-                autoFocus
-              />  
+            <FormLabel component="legend">1. Qual seu time?</FormLabel>
+            <RadioGroup aria-label="gender" name="gender1">
+              <FormControlLabel value="bahia" control={<Radio />} label="Bahia" />
+              <FormControlLabel value="vitoria" control={<Radio />} label="Vitória" />
+              <FormControlLabel value="fluminense" control={<Radio />} label="Fluminense" />
+              <FormControlLabel value="outro" control={<Radio />} label="Outro" />
+            </RadioGroup>
+          </FormControl>
+          <FormControl component="fieldset" className={classes.combo}>
+            <FormLabel component="legend">2. Quais títulos seu time já ganhou?</FormLabel>
+            <FormGroup>
+              <FormControlLabel
+                control={<Checkbox name="baiano" />}
+                label="Baiano"
+              />
+              <FormControlLabel
+                control={<Checkbox name="nordestao" />}
+                label="Nordestão"
+              />
+              <FormControlLabel
+                control={<Checkbox name="copa" />}
+                label="Copa do Brasil"
+              />
+              <FormControlLabel
+                control={<Checkbox name="brasileiro" />}
+                label="Campeonato Brasileiro"
+              />
+            </FormGroup>
+          </FormControl>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Qual o maior jogador do seu time?"
+            name="email"
+            autoComplete="email"
+            autoFocus
+          />
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="fname"
                 name="firstName"
                 variant="outlined"
-                
+
                 fullWidth
                 id="firstName"
                 label="Nome"
@@ -129,7 +274,7 @@ export default function SignIn() {
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                variant="outlined"                
+                variant="outlined"
                 fullWidth
                 id="lastName"
                 label="Sobrenome"
@@ -162,7 +307,7 @@ export default function SignIn() {
                 autoComplete="lname"
               />
             </Grid>
-          </Grid>          
+          </Grid>
           <TextField
             variant="outlined"
             margin="normal"
@@ -182,7 +327,7 @@ export default function SignIn() {
             className={classes.submit}
           >
             Enviar
-          </Button>          
+          </Button>
         </form>
       </div>
       <Box mt={8}>
